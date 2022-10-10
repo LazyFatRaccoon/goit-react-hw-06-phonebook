@@ -2,8 +2,12 @@ import React from 'react';
 import css from './Contact.module.css';
 import PropTypes from 'prop-types';
 import { FaTrashAlt } from 'react-icons/fa';
+import { deleteContact } from 'redux/contacts/contactsSlice';
+import { useDispatch } from 'react-redux';
 
-const Contact = ({ contact, onDeleteContact }) => {
+const Contact = ({ contact }) => {
+  const dispatch = useDispatch();
+
   return (
     <li className={css.li}>
       <span>
@@ -12,7 +16,7 @@ const Contact = ({ contact, onDeleteContact }) => {
       <button
         className={css.button}
         type="button"
-        onClick={() => onDeleteContact(contact.id)}
+        onClick={() => dispatch(deleteContact({ id: contact.id }))}
       >
         <FaTrashAlt className={css.icon} size={40} />
       </button>
@@ -26,7 +30,6 @@ Contact.propTypes = {
     name: PropTypes.string.isRequired,
     telephone: PropTypes.string.isRequired,
   }).isRequired,
-  onDeleteContact: PropTypes.func.isRequired,
 };
 
 export default Contact;
